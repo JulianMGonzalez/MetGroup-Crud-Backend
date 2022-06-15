@@ -11,6 +11,7 @@ export const Store = sequelize.define('stores', {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     description: {
         type: DataTypes.STRING,

@@ -7,7 +7,7 @@ import './models/Relations.js';
 // import './models/Article.js';
 
 try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: true });
     const port = process.env.PORT || 3000;
     app.listen(port, () => console.log(`backend listening on port ${port}!`));
 

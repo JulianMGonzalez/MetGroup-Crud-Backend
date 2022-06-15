@@ -11,6 +11,7 @@ export const Article = sequelize.define('articles', {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     description: {
         type: DataTypes.STRING,

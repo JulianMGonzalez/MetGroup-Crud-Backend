@@ -10,9 +10,6 @@ export const storeArticles = sequelize.define('store_articles', {
     reference: {
         type: DataTypes.INTEGER,
     },
-    stock: {
-        type: DataTypes.INTEGER,
-    }
 },
     { timestamps: false }
 );

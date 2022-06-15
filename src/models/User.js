@@ -10,28 +10,33 @@ export const User = sequelize.define('users', {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     last_name: {
         type: DataTypes.STRING,
     },
     email: {
         type: DataTypes.STRING,
-        unique: true, 
+        unique: true,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        }
     },
     password: {
         type: DataTypes.STRING,
     },
-    avatar:{
+    avatar: {
         type: DataTypes.STRING,
     }
 })
 
 // User.hasMany(Store, {
 //     foreignKey: 'user_id',
-//     sourceKey: 'id' 
+//     sourceKey: 'id'
 // })
 
 // Store.belongsTo(User, {
 //     foreignKey: 'article_id',
-//     targetId: 'id' 
+//     targetId: 'id'
 // })
