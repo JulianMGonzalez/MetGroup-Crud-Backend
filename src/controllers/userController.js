@@ -37,9 +37,8 @@ export const createUser = async (req, res) => {
             })
         }
     } catch (error) {
-        console.log(error);
         res.status(500).send({ //500 error con el servidor
-            message: 'Error -> servidor'
+            message: error.message
         })
     }
 }

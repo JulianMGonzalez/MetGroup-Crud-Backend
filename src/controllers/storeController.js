@@ -1,5 +1,6 @@
 import { Store } from '../models/Store.js'
 import { User } from '../models/User.js'
+import { Article } from '../models/Article.js'
 
 export const getStores = async (req, res) => {
     try {
@@ -16,7 +17,7 @@ export const getStores = async (req, res) => {
 } 
 export const getStoreById = async (req, res) => {
     try {
-        const store = await Store.findByPk(req.params.id)
+        const store = await Store.findByPk(req.params.id, { include: Article })
         if (store === null) {
             res.status(400).send({
                 message: 'Store not found'

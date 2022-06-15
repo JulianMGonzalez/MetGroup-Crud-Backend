@@ -3,7 +3,7 @@ import { Store } from '../models/Store.js'
 
 export const getArticles = async (req, res) => {
     try {
-        const articles = await Article.findAll({ include: Store })
+        const articles = await Article.findAll()
         res.status(200).send({
             message: 'Articles retrieved successfully',
             data: articles
@@ -14,9 +14,9 @@ export const getArticles = async (req, res) => {
         })
     }
 }
-export const getArticleById = async (req, res) => {
+export const getArticleById = async (req, res) => { 
     try {
-        const article = await Article.findByPk(req.params.id)
+        const article = await Article.findByPk(req.params.id, { include: Store })
         if (article === null) {
             res.status(400).send({
                 message: 'Article not found'
@@ -33,23 +33,36 @@ export const getArticleById = async (req, res) => {
         })
     }
 }
-export const relationArticle = async (req, res) => {
-    const paramsId = req.params.id
-    const { id } = req.body
-    const article = await Article.findByPk(paramsId)
-    if (article === null) {
-        res.status(400).send({
-            message: 'Article not found'
+export const relationArticleStore = async (req, res) => {
+    try {
+        const { articleId, storeId, reference} = req.body
+        const article = await Article.findByPk(articleId)
+        console.log(article);
+        if (article === null) {
+            res.status(400).send({
+                message: 'Article not found'
+            })
+        }
+        const store = await Store.findByPk(storeId)
+        if (store === null) {
+            res.status(400).send({
+                message: 'Store not found'
+            })
+        }
+        article.addStore(storeId, { through: { reference } }) 
+        res.status(200).send({
+            message: 'Article updated successfully',
+            data: article
         })
-    } else {
-        await article.addStore(id)
-
+    } catch (error) {
+        res.status(500).send({ //500 error con el servidor
+            message: 'Error -> servidor'
+        })
     }
-
 }
 export const createArticle = async (req, res) => {
     try {
-        const { name, description, image, idStore, reference, stock } = req.body
+        const { name, description, image } = req.body
 
         const register = await Article.findOne({ where: { name: name } })
 
@@ -64,7 +77,7 @@ export const createArticle = async (req, res) => {
                 image,
 
             })
-            article.addStore(idStore, { through: { reference, stock } })
+            /* article.addStore(idStore, { through: { reference, stock } }) */
 
             res.status(200).send({
                 message: 'Article created successfully',
