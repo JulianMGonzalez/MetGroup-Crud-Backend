@@ -26,12 +26,12 @@ export const User = sequelize.define('users', {
     }
 })
 
-User.hasMany(Store, {
-    foreignKey: 'user_id',
-    sourceKey: 'id' 
-})
+// User.hasMany(Store, {
+//     foreignKey: 'user_id',
+//     sourceKey: 'id' 
+// })
 
-Store.belongsTo(User, {
-    foreignKey: 'article_id',
-    targetId: 'id' 
-})
+// Store.belongsTo(User, {
+//     foreignKey: 'article_id',
+//     targetId: 'id' 
+// })

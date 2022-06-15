@@ -19,7 +19,7 @@ export const Store = sequelize.define('stores', {
         type: DataTypes.STRING,
     },
 })
-
+/* 
 export const Article = sequelize.define('articles', {
     id: {
         type: DataTypes.INTEGER,
@@ -35,17 +35,14 @@ export const Article = sequelize.define('articles', {
     image: {
         type: DataTypes.STRING,
     },
-    reference: {
-        type: DataTypes.INTEGER,
-    }
-})
+}) */
 
 
 
 /* Creating a relationship between the two tables. */
-Store.belongsToMany(Article, {
-    through: 'store_articles'
-})
-Article.belongsToMany(Store, {
-    through: 'store_articles'
-})
+// Article.belongsToMany(Store, {
+//     through: storeArticles
+// })
+// Store.belongsToMany(Article, {
+//     through: storeArticles
+// })
