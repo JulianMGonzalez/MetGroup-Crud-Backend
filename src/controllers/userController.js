@@ -1,4 +1,6 @@
 import { User } from '../models/User.js'
+import { Store } from '../models/Store.js'
+import { Article } from '../models/Article.js'
 export const getUsers = async (req, res) => {
     try {
         const users = await User.findAll()
@@ -98,7 +100,7 @@ export const deleteUser = async (req, res) => {
 }
 export const getUserById = async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id);
+        const user = await User.findByPk(req.params.id, { include: [Store] });
         if (user === null) {
             res.status(400).send({
                 message: 'User not found'
