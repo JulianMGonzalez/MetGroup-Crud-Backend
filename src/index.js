@@ -4,7 +4,7 @@ import { sequelize } from "./database/database.js";
 import './models/User.js';
 import './models/Store.js';
 import './models/Relations.js';
-// import './models/Article.js';
+import './models/Article.js';
 
 try {
     await sequelize.sync({ force: false });

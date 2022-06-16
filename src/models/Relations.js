@@ -3,8 +3,8 @@ import { Store } from './Store.js';
 import { Article } from './Article.js';
 import { storeArticles } from './storeArticle.js';
 
-User.hasMany(Store);
-Store.belongsTo(User);
+User.hasMany(Store, { onDelete: 'CASCADE' });
+Store.belongsTo(User, { onDelete: 'CASCADE' });
 
 Store.belongsToMany(Article, { through: storeArticles });
 Article.belongsToMany(Store, { through: storeArticles });
