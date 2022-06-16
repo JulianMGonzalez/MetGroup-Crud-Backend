@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
-import { Store } from './Store.js'
 
 export const User = sequelize.define('users', {
     id: {
@@ -20,7 +19,7 @@ export const User = sequelize.define('users', {
         unique: true,
         allowNull: false,
         validate: {
-            isEmail: true
+            isEmail: true // @dominio.ext
         }
     },
     password: {
@@ -30,13 +29,3 @@ export const User = sequelize.define('users', {
         type: DataTypes.STRING,
     }
 })
-
-// User.hasMany(Store, {
-//     foreignKey: 'user_id',
-//     sourceKey: 'id'
-// })
-
-// Store.belongsTo(User, {
-//     foreignKey: 'article_id',
-//     targetId: 'id'
-// })
