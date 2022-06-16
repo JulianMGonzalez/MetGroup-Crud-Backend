@@ -1,6 +1,7 @@
 import { User } from '../models/User.js'
 import { Store } from '../models/Store.js'
-import { Article } from '../models/Article.js'
+import bcrypt from 'bcryptjs'
+
 export const getUsers = async (req, res) => {
     try {
         const users = await User.findAll()
@@ -29,7 +30,7 @@ export const createUser = async (req, res) => {
                 name,
                 last_name,
                 email,
-                password,
+                password : bcrypt.hashSync(password, 10),
                 avatar,
 
             })
@@ -118,4 +119,34 @@ export const getUserById = async (req, res) => {
         })
     }
 
+}
+export const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ where: { email: email } });
+        if (user === null) {
+            res.status(400).send({
+                message: 'User not found'
+            })
+        } else {
+            const passwordIsValid = bcrypt.compareSync(
+                password,
+                user.password
+              );
+            if (passwordIsValid) {
+                res.status(200).send({
+                    message: 'User logged successfully',
+                    data: user
+                })
+            } else {
+                res.status(401).send({
+                    message: 'Wrong password'
+                })
+            }
+        }
+    } catch (error) {
+        res.status(500).send({ //500 error con el servidor
+            message: 'Error -> servidor'
+        })
+    }
 }
